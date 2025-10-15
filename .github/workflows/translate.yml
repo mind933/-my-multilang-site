@@ -1,4 +1,5 @@
-name: Auto Translate Pages
+name: Auto Translate HTML
+
 on:
   push:
     branches: [main]
@@ -7,29 +8,32 @@ jobs:
   translate:
     runs-on: ubuntu-latest
     steps:
-      - name: 코드 가져오기
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: 파이썬 설치하기
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
-      - name: 번역 프로그램 설치하기
-        run: pip install googletrans==4.0.0-rc1
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
 
-      - name: 한국어를 영어로 번역하기
-        run: |
-          python translate.py index.md en/index.md en
+      - name: Translate Korean HTML to English
+        run: python translate_html.py index.html en/index.html en
 
-      - name: 한국어를 일본어로 번역하기
-        run: |
-          python translate.py index.md ja/index.md ja
+      - name: Translate Korean HTML to Japanese
+        run: python translate_html.py index.html ja/index.html ja
 
-      - name: 번역한 파일 저장하기
+      - name: Commit translated files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add en/index.md ja/index.md
-          git commit -m "자동 번역"
+          git add en/index.html ja/index.html
+          git commit -m "Auto translated HTML pages"
           git push
+        env:
+          # 번역 API 키와 엔드포인트 등은 github secrets로 관리하세요!
+          API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
+          ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
+          LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
