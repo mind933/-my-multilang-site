@@ -1,10 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-import sys
+import os
 
-  API_KEY: ${{secrets.AZURE_TRANSLATOR_KEY}}
-  ENDPOINT: ${{secrets.AZURE_TRANSLATOR_ENDPOINT}}
-  LOCATION: ${{secrets.AZURE_TRANSLATOR_LOCATION}}
+API_KEY = os.environ['API_KEY']
+ENDPOINT = os.environ['ENDPOINT']
+LOCATION = os.environ['LOCATION']
 
 def translate_text(text, to_lang):
     path = '/translate?api-version=3.0'
