@@ -36,7 +36,7 @@ def translate_html_file(src_path, dst_path, to_lang):
         f.write(str(soup))
 
 if __name__ == "__main__":
-    src_file = os.argv[1]
-    dst_file = os.argv[2]
-    target_lang = os.argv[3]
+    src_file = sys.argv[1]
+    dst_file = sys.argv[2]
+    target_lang = sys.argv[3]
     translate_html_file(src_file, dst_file, target_lang)
