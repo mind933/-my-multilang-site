@@ -1,6 +1,7 @@
+import os
+import sys
 import requests
 from bs4 import BeautifulSoup
-import os
 
 API_KEY = os.environ['API_KEY']
 ENDPOINT = os.environ['ENDPOINT']
