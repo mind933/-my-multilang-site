@@ -1,0 +1,35 @@
+name: Auto Translate Pages
+on:
+  push:
+    branches: [main]
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@v4
+
+      - name: 파이썬 설치하기
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: 번역 프로그램 설치하기
+        run: pip install googletrans==4.0.0-rc1
+
+      - name: 한국어를 영어로 번역하기
+        run: |
+          python translate.py index.md en/index.md en
+
+      - name: 한국어를 일본어로 번역하기
+        run: |
+          python translate.py index.md ja/index.md ja
+
+      - name: 번역한 파일 저장하기
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add en/index.md ja/index.md
+          git commit -m "자동 번역"
+          git push
