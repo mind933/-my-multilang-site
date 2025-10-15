@@ -26,7 +26,6 @@ def translate_html_file(src_path, dst_path, to_lang):
     with open(src_path, 'r', encoding='utf-8') as f:
         soup = BeautifulSoup(f, 'html.parser')
 
-    # 텍스트만 추출해서 번역 (태그 구조 보존)
     for element in soup.find_all(text=True):
         parent = element.parent
         if parent.name not in ['script', 'style']:
@@ -39,7 +38,7 @@ def translate_html_file(src_path, dst_path, to_lang):
         f.write(str(soup))
 
 if __name__ == "__main__":
-    src_file = sys.argv[1]       # 원본 HTML 파일
-    dst_file = sys.argv[2]       # 번역 결과 HTML 파일
-    target_lang = sys.argv[3]    # 번역할 언어코드 (예: 'en', 'ja')
+    src_file = sys.argv[1]
+    dst_file = sys.argv[2]
+    target_lang = sys.argv[3]
     translate_html_file(src_file, dst_file, target_lang)
