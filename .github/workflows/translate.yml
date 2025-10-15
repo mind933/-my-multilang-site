@@ -20,9 +20,17 @@ jobs:
         run: pip install requests beautifulsoup4
 
       - name: Translate Korean HTML to English
+        env:
+          API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
+          ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
+          LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
         run: python translate_html.py index.html en/index.html en
 
       - name: Translate Korean HTML to Japanese
+        env:
+          API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
+          ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
+          LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
         run: python translate_html.py index.html ja/index.html ja
 
       - name: Commit translated files
@@ -32,7 +40,3 @@ jobs:
           git add en/index.html ja/index.html
           git commit -m "Auto translated HTML pages"
           git push
-        env:
-          API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
-          ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
-          LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
