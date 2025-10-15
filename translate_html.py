@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 
-env:
   API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
   ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
   LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
