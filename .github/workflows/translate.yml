@@ -33,7 +33,6 @@ jobs:
           git commit -m "Auto translated HTML pages"
           git push
         env:
-          # 번역 API 키와 엔드포인트 등은 github secrets로 관리하세요!
           API_KEY: ${{ secrets.AZURE_TRANSLATOR_KEY }}
           ENDPOINT: ${{ secrets.AZURE_TRANSLATOR_ENDPOINT }}
           LOCATION: ${{ secrets.AZURE_TRANSLATOR_LOCATION }}
